@@ -1,0 +1,20 @@
+{
+    "name": "darcysdk/util",
+    "description": "一套简单php加密/解密算法方案",
+    "type": "library",
+    "require": {
+        "php": ">=7.2"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "DarcySdk\\Util\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Darcy Ye",
+            "email": "252452324@qq.com"
+        }
+    ]
+}
