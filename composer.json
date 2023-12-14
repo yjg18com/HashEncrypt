@@ -1,7 +1,7 @@
 {
     "name": "darcysdk/util",
     "description": "一套简单php加密/解密算法方案",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "type": "library",
     "require": {
         "php": ">=7.2"
