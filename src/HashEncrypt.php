@@ -122,7 +122,10 @@ class HashEncrypt
 
         $txt = $content_1 . implode('', $contentAres); //数据拼接
 
-        $content = trim(base64_decode($txt)); //base64解密
+        $content = trim(base64_decode($txt)); //base64解码
+
+        // Base64解码检测字符的编码
+        if (mb_detect_encoding($content, mb_detect_order(), true) === false) return 'Invalid Ciphertext';
 
         if($this->is_serialized($content)){
             $content = unserialize($content); //反序列化
