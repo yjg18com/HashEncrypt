@@ -5,7 +5,7 @@
  * Author: 252452324@qq.com
  * Date: 2023/12/12
  * Time: 10:57
- * Version: v1.0
+ * Version: v1.0.5
  */
 
 namespace DarcySdk\Util;
@@ -69,15 +69,15 @@ class HashEncrypt
         $txt = $this->getBase64Encode($plainText); //明文转成 base64
 
         /** 第一次算法加密及反转 */
-        $content1 = strrev(substr($txt, 0, $tmp_nh));
-        $content2 = substr($txt, $tmp_nh);
+        $content1 = $tmp_nh == 0 ? '' : substr($txt, 0, $tmp_nh);
+        $content2 = strrev(substr($txt, $tmp_nh));
         $key1 = $ch . $content1 . $Key . $content2; //数据拼接
 
         /** 第二次算法加密及反转 */
         $tmp_nh = random_int(0, $nh); //随机数
         $KeyStatistics = strlen($key1);
         $ch1 = $chars[$tmp_nh]; //取chars第N位做为基数
-        $content_1 = strrev(substr($key1, $tmp_nh * (-1))); //切割后面内容并反转
+        $content_1 = $tmp_nh == 0 ? '' : strrev(substr($key1, $tmp_nh * (-1))); //切割后面内容并反转
         $content_2 = substr($key1, 0, $KeyStatistics - $tmp_nh);
 
         return $this->getBase64Encode($content_1 . $content_2 . $ch1);
@@ -118,9 +118,9 @@ class HashEncrypt
         $content = substr($content, 1); //删除第一位基数
 
         $contentAres = explode($mdKey, $content); //拆分数据
-        $content_1 = strrev(array_shift($contentAres)); //第一部分
+        $content_1 = array_shift($contentAres); //第一部分
 
-        $txt = $content_1 . implode('', $contentAres); //数据拼接
+        $txt = $content_1 . strrev(implode('', $contentAres)); //数据拼接
 
         $content = trim(base64_decode($txt)); //base64解码
 
