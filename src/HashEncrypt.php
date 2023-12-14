@@ -142,12 +142,12 @@ class HashEncrypt
         $signType = strtolower($this->_signType);
 
         if (in_array($signType, hash_algos())) {
-            $hashVar = hash($signType, $str); //散列
+            $hashVar = hash($signType, $str . $this->_secre); //散列
         } else {
-            $hashVar = bin2hex($str); //转换为十六进制
+            $hashVar = bin2hex(md5($signType) . $str . $this->_secre); //转换为十六进制
         }
 
-        return $this->getBase64Encode($hashVar . $signType . $this->_secre);
+        return $this->getBase64Encode($hashVar);
     }
 
 
